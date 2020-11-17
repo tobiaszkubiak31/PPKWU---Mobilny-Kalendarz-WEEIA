@@ -1,6 +1,10 @@
 package pkkwu.Calendar.api;
 
 import java.io.IOException;
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.property.CalScale;
+import net.fortuna.ical4j.model.property.ProdId;
+import net.fortuna.ical4j.model.property.Version;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,7 +22,15 @@ public class IcsCalendarController {
 	public String testController(@RequestParam(value = "month") String month,
 		@RequestParam(value = "year") String year) {
 		String UrlToCheck = buildUrlByMonthAndDate(month,year);
+		createIcsCalendar();
 		return parseHtmlInGsoup(UrlToCheck);
+	}
+
+	private void createIcsCalendar() {
+		Calendar calendar = new Calendar();
+		calendar.getProperties().add(new ProdId("-//Ben Fortuna//iCal4j 1.0//EN"));
+		calendar.getProperties().add(Version.VERSION_2_0);
+		calendar.getProperties().add(CalScale.GREGORIAN);
 	}
 
 	String parseHtmlInGsoup(String urlToCheck){
@@ -42,7 +54,7 @@ public class IcsCalendarController {
 		Elements activeElements = doc.getElementsByClass("active");
 		Elements elementsWithTdTag = new Elements();
 		for (Element activeElement : activeElements) {
-			if(activeElement.tag().equals("td")){
+			if(activeElement.tag().toString().equals("td")){
 				elementsWithTdTag.add(activeElement);
 			}
 		}
