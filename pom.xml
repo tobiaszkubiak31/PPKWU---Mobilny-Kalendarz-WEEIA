@@ -14,6 +14,8 @@
 	<name>Calendar</name>
 	<description>PPKWU</description>
 
+
+
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -22,6 +24,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.13.1</version>
 		</dependency>
 
 		<dependency>
