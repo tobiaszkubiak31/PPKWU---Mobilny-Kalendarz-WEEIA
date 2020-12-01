@@ -2,11 +2,11 @@ package pkkwu.Calendar.api;
 
 public class Event {
 	private int day;
-	private String desc;
+	private String eventInfo;
 
-	public Event(int day, String desc) {
+	public Event(int day, String eventInfo) {
 		this.day = day;
-		this.desc = desc;
+		this.eventInfo = eventInfo;
 	}
 	public int getDay() {
 		return day;
@@ -14,10 +14,10 @@ public class Event {
 	public void setDay(int day) {
 		this.day = day;
 	}
-	public String getDesc() {
-		return desc;
+	public String getEventInfo() {
+		return eventInfo;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setEventInfo(String eventInfo) {
+		this.eventInfo = eventInfo;
 	}
 }
