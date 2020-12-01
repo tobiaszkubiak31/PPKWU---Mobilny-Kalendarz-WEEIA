@@ -1,9 +1,10 @@
-# Ics calendar file generator
-## Returns ics file with added events from http://www.weeia.p.lodz.pl/
+# Generator plików ics
+## Api zwraca pliki ics zawierające wydarzenia z kalendarza WEEIA ze strony: http://www.weeia.p.lodz.pl/
 
+Przykładowe zapytania
 ## URL /ics/
 ### Method:GET
-	URL Params Required: month=[string]
+	URL Wymagany: month=[string]
 	URL Params Required: year=[string]
 ###	Examples:
 ####	http://localhost:8080/ics?year=2020&month=01
