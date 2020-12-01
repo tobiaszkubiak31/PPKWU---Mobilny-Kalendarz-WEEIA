@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -62,15 +64,15 @@ public class IcsCalendarController {
 		return doc.toString();
 	}
 
-	private void getEvents(Document doc) {
+	private ArrayList<Event> getEvents(Document doc) {
 		Elements elementsWithEventInformation = extractDivs(doc);
-		for (Element element : elementsWithEventInformation) {
-			String day = element.html().toString();
-			System.out.println(day);
-
+		Elements elementsWithEvents = elementsWithEventInformation.select("div.InnerBox");
+		Elements elementsWithDays = elementsWithEventInformation.select("a.active");
+		ArrayList<Event> eventList = new ArrayList<>();
+		for (int i = 0; i < elementsWithEvents.size(); i++) {
+			eventList.add(new Event(Integer.parseInt(elementsWithDays.get(i).text()), elementsWithEventInformation.get(i).text()));
 		}
-//		int day = elementsWithEventInformation.get(0);
-
+		return eventList;
 	}
 
 	private Elements extractDivs(Document doc) {
