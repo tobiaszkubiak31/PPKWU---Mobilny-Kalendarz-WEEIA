@@ -1,8 +1,8 @@
-# Generator plików ics
+# Generator plików ics pobierający wydarzenia z zewnętrznej strony(WEEIA)
 ## Api zwraca pliki ics zawierające wydarzenia z kalendarza WEEIA ze strony: http://www.weeia.p.lodz.pl/
 
 Opis Api
-## adres URL /ics/?year={year}&month={monrh}
+## adres URL /ics/?year={year}&month={month}
 ### Metoda:GET
 ####     Parametr:year (String) - miesiąc dla którego mają być pobrane wydarzenia.
 ####     Parametr:month (String) - dla którego mają być pobrane wydarzenia.
