@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IcsCalendarController {
 
 	public static final String HOSTURL = "http://www.weeia.p.lodz.pl/pliki_strony_kontroler/kalendarz.php?/kalendarz.php?";
-	public static final String FILE_NAME = "calendar.ics";
+	public static String FILE_NAME = "calendar.ics";
 
 	@GetMapping("/ics")
 	public ResponseEntity testController(@RequestParam(value = "month") String month,
@@ -44,9 +44,9 @@ public class IcsCalendarController {
 			createEventInCalendar(parsedEvent,iCalendar,year,month);
 		}
 //		return parseHtmlInGsoup(UrlToCheck);
-		File file = new File(FILE_NAME);
+		File file = new File(month + year + FILE_NAME);
 		Biweekly.write(iCalendar).go(file);
-		Resource resource = new UrlResource(Paths.get(FILE_NAME).toUri());
+		Resource resource = new UrlResource(Paths.get(month + year + FILE_NAME).toUri());
 		return ResponseEntity.ok()
 			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resource.getFilename())
 			.body(resource);
