@@ -1,14 +1,22 @@
 package pkkwu.Calendar.api;
 
+import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,20 +25,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class IcsCalendarController {
 
 	public static final String HOSTURL = "http://www.weeia.p.lodz.pl/pliki_strony_kontroler/kalendarz.php?/kalendarz.php?";
+	public static final String FILE_NAME = "calendar.ics";
 
 	@GetMapping("/ics")
-	public String testController(@RequestParam(value = "month") String month,
-		@RequestParam(value = "year") String year) {
+	public ResponseEntity testController(@RequestParam(value = "month") String month,
+		@RequestParam(value = "year") String year) throws IOException {
 		String UrlToCheck = buildUrlByMonthAndDate(month,year);
-		createIcsCalendar();
-		return parseHtmlInGsoup(UrlToCheck);
+		ICalendar iCalendar = createIcsCalendar();
+		parseHtmlInGsoup(UrlToCheck);
+//		return parseHtmlInGsoup(UrlToCheck);
+		File file = new File(FILE_NAME);
+		Biweekly.write(iCalendar).go(file);
+		Resource resource = new UrlResource(Paths.get(FILE_NAME).toUri());
+		return ResponseEntity.ok()
+			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resource.getFilename())
+			.body(resource);
 	}
 
-	private void createIcsCalendar() {
+	private ICalendar createIcsCalendar() {
 		ICalendar calendar = new ICalendar();
 		calendar.setExperimentalProperty("X-WR-CALNAME", "Wydarzenia WEEIA");
 
 		System.out.println(calendar.toString());
+		return calendar;
 	}
 
 	String parseHtmlInGsoup(String urlToCheck){
