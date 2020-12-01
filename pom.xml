@@ -27,9 +27,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.mnode.ical4j</groupId>
-			<artifactId>ical4j</artifactId>
-			<version>3.0.0</version>
+			<groupId>net.sf.biweekly</groupId>
+			<artifactId>biweekly</artifactId>
+			<version>0.6.5</version>
 		</dependency>
 
 		<dependency>

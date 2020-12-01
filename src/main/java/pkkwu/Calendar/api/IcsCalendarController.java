@@ -1,13 +1,10 @@
 package pkkwu.Calendar.api;
 
+import biweekly.ICalendar;
+import biweekly.component.VEvent;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.property.CalScale;
-import net.fortuna.ical4j.model.property.ProdId;
-import net.fortuna.ical4j.model.property.Version;
-import net.fortuna.ical4j.util.UidGenerator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,24 +27,10 @@ public class IcsCalendarController {
 	}
 
 	private void createIcsCalendar() {
-		Calendar calendar = new Calendar();
-		calendar.getProperties().add(new ProdId("-//Ben Fortuna//iCal4j 1.0//EN"));
-		calendar.getProperties().add(Version.VERSION_2_0);
-		calendar.getProperties().add(CalScale.GREGORIAN);
+		ICalendar calendar = new ICalendar();
+		calendar.setExperimentalProperty("X-WR-CALNAME", "Wydarzenia WEEIA");
+
 		System.out.println(calendar.toString());
-
-		java.util.Calendar calendarEvent = java.util.Calendar.getInstance();
-		calendarEvent.set(java.util.Calendar.MONTH, java.util.Calendar.DECEMBER);
-		calendarEvent.set(java.util.Calendar.DAY_OF_MONTH, 25);
-
-		VEvent christmas = new VEvent(new Date(calendarEvent.getTime()), "Christmas Day");
-
-		UidGenerator ug = new UidGenerator("1");
-		christmas.getProperties().add(ug.generateUid());
-
-		net.fortuna.ical4j.model.Calendar cal = new net.fortuna.ical4j.model.Calendar();
-		cal.getComponents().add(christmas);
-
 	}
 
 	String parseHtmlInGsoup(String urlToCheck){
@@ -58,18 +41,18 @@ public class IcsCalendarController {
 			e.printStackTrace();
 			return e.getMessage();
 		}
-		getInformationAboutEvents(doc);
+		getEvents(doc);
 		return doc.toString();
 	}
 
-	private void getInformationAboutEvents(Document doc) {
+	private void getEvents(Document doc) {
 		Elements elementsWithEventInformation = extractDivs(doc);
 		for (Element element : elementsWithEventInformation) {
 			String day = element.html().toString();
 			System.out.println(day);
 
 		}
-		int day = elementsWithEventInformation.get(0);
+//		int day = elementsWithEventInformation.get(0);
 
 	}
 
