@@ -7,7 +7,7 @@ Opis Api
 ####     Parametr:year (String) - miesiąc dla którego mają być pobrane wydarzenia.
 ####     Parametr:month (String) - dla którego mają być pobrane wydarzenia.
 
-#Przykładowe zapytania
+# Przykładowe zapytania
 ####	http://localhost:8080/ics?year=2020&month=03
 ### Zwrócony plik we formacie ics: 
 #### 102020calendar.ics
