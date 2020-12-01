@@ -3,11 +3,14 @@
 
 Przykładowe zapytania
 Wymagane parametry
-	miesiąc - miesiąc dla którego mają być pobrane wydarzenia URL Wymagany: month=[string]
-	rok rok dla którego mają być pobrane wydarzenia -   URL Params Required: year=[string]
+### miesiąc(month) - miesiąc dla którego mają być pobrane wydarzenia.
+#### rok(year) dla którego mają być pobrane wydarzenia.
+
 ## adres URL /ics/
 ### Metoda:GET
 ###	Przykład:
+####     Parametr:year (String)
+####     Parametr:month (String)
 ####	http://localhost:8080/ics?year=2020&month=03
 
 ### Zwrócony plik: 
